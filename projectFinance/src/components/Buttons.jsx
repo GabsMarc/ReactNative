@@ -1,14 +1,13 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native'
 
 
-export function ButtonWelcome({title}) {
-
+export function ButtonWelcome({title, screen}) {
   const navigation = useNavigation()
   
   function openScreen(){
-    navigation.navigate('Aplication')
+    navigation.navigate(screen)
   }
 
   return (
@@ -20,12 +19,13 @@ export function ButtonWelcome({title}) {
   );
 }
 
-export function ButtonInfo({title}) {
 
+
+export function ButtonInfo({title, screen}) {
   const navigation = useNavigation()
   
   function openScreen(){
-    navigation.navigate('Infos')
+    navigation.navigate(screen)
   }
 
   return (
@@ -40,6 +40,36 @@ export function ButtonInfo({title}) {
 }
 
 
+export function ButtonReturn({screen, image}){
+  const navigation = useNavigation()
+  
+  function openScreen(){
+    navigation.navigate(screen)
+  }
+
+  return (
+    <TouchableOpacity onPress={openScreen} >
+        <Image
+          source={image} 
+          style={style.BtnIcon}
+        />
+    </TouchableOpacity>
+  )
+}
+
+
+export function ButtonIcon({image}){
+
+  return (
+    <TouchableOpacity>
+        <Image
+          source={image} 
+          style={[style.BtnIcon, {height: 60, width: 60}]}
+        />
+    </TouchableOpacity>
+  )
+}
+
 
 const style = StyleSheet.create ({
     ButtonWelcome: { 
@@ -51,13 +81,13 @@ const style = StyleSheet.create ({
       paddingHorizontal: 20,
       borderRadius: 20,
       backgroundColor: '#e632fa', 
-      borderWidth: 5,
-      borderColor: '#e632fa'
+
     },
 
     txtWelcome: {
       fontSize: 25,
       fontWeight: 'bold',
+      color: 'white'
     },
     
 
@@ -67,17 +97,39 @@ const style = StyleSheet.create ({
       backgroundColor: '#FFF', 
       marginHorizontal: 130,
       position: 'absolute',
-      left: 130,
+      left: 210,
       marginTop: 10,
       padding: 5,
-      backgroundColor: '#f2d5f5',
+      paddingLeft: 10,
+      paddingRight: 10,
+      backgroundColor: '#e632fa',
     },
     
     txtInfo: {
       fontSize: 18,
       fontWeight: 'bold',
       textAlign: 'center',
-      
+      color: 'white'
 
     },
+
+    
+    btnReturn: {
+      borderRadius: 30,
+      width: 50,
+      height: 50,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 50,
+      marginLeft: 20
+    },
+
+    BtnIcon: {
+      width: 45,
+      height: 45,
+       
+    }
+
+
+
   })

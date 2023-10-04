@@ -1,40 +1,44 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Welcome } from '../screens/Welcome';
-import { Aplication } from '../screens/Aplication';
-import { Infos } from '../screens/Infos';
+import { Welcome } from '../screens/main/Welcome';
+import { Aplication } from '../screens/main/Aplication';
+import { Infos } from '../screens/main/Infos';
 
 
-const { Screen, Navigator } = createNativeStackNavigator();
+const { Screen, Navigator, Group } = createNativeStackNavigator();
 
 export function StackRoutes(){
     return (
         <Navigator>
-            <Screen 
-                name='Welcome'
-                component={Welcome}
-                options={{
-                    title: 'Tela A',
-                    headerShown: false
-                }}
-            />
+            <Group
+              screenOptions={{
+                headerShown: false 
+              }}  
+            >
 
-            <Screen 
-                name='Aplication'
-                component={Aplication}
-                options={{
-                    title: 'Finance',
-                    headerTitleAlign: 'center' 
-                }}
-            />
+                <Screen 
+                    name='Welcome'
+                    component={Welcome}
+                    options={{
+                        title: 'Tela A'
+                    }}
+                />
 
-            <Screen 
-                name='Infos'
-                component={Infos}
-                options={{
-                    title: 'Informações',
-                    headerTitleAlign: 'center' 
-                }}
-            />
+                <Screen 
+                    name='Aplication'
+                    component={Aplication}
+                    options={{
+                        title: 'Finance',                   
+                    }}
+                />
+
+                <Screen 
+                    name='Infos'
+                    component={Infos}
+                    options={{
+                        title: 'Informações'
+                    }}
+                />
+            </Group>
         </Navigator>
     )
 }

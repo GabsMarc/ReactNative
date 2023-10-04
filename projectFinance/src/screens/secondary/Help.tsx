@@ -1,10 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 
-
-export function Aplication() {
+export function Help() {
   return (
-    <View style={{flex: 1, backgroundColor: '#bf93c4'}}>
+    <View>
 
     </View>
   );

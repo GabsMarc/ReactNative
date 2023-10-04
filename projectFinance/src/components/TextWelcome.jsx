@@ -19,7 +19,8 @@ const style = StyleSheet.create ({
         fontSize: 50,
         marginLeft: 20,
         fontWeight: 'bold',
-        color: 'white'
+        color: 'white',
+        
     },
 
     txt: {
