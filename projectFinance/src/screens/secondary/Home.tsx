@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
-import { FlatList, Image, StyleSheet, Text, TextInput, View } from 'react-native';
+import { 
+    FlatList, 
+    Image, 
+    StyleSheet, 
+    Text, 
+    TextInput, 
+    View,
+    Alert 
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ButtonIcon } from '../../components/Buttons';
 import { Feather } from '@expo/vector-icons'
 import Itens from '../../components/Itens';
+import AddItem from '../../components/AddItem';
+
+
 
 export default class Home extends Component {
   
   state = {
+    showAddModal: false,
     finances: [{
         id: Math.random(),
         title: 'titulo 1',
@@ -19,9 +31,36 @@ export default class Home extends Component {
     }]
   }
 
+  addFinance = newFinance => {
+      if(!newFinance.title || !newFinance.title.trim()) {
+          Alert.alert('Título não informada!')
+          return
+      } else if(!newFinance.desc || !newFinance.desc.trim()) {
+        Alert.alert('Descrição não informada!')
+        return
+      }
+
+      const finances = [...this.state.finances]
+      finances.push({
+        id: Math.random(),
+        title: newFinance.title,
+        desc: newFinance.desc
+      })
+
+      this.setState({ finances, showAddModal: false })
+  }
+
+  deleteFinance = id => {
+    const finances = this.state.finances.filter(finances => finances.id !== id)
+    this.setState({ finances })
+  }
+
   render() {
     return (
       <SafeAreaView style={style.safeArea}>
+        <AddItem isVisible={this.state.showAddModal}
+              onCancel={() => this.setState({ showAddModal: false })}
+              onSave={this.addFinance}/>
           <View style={[{ backgroundColor: '#740be3', height: 100}]}>
               <Text style={style.title}>
                 Finance
@@ -35,15 +74,20 @@ export default class Home extends Component {
                         placeholder='Pesquisar bloco'/>
                   </View>
                   <View style={style.ButtonStyle}>
-                      <ButtonIcon image={require('../../../assets/botao-adicionar-white.png')} height={50} width={50}/>
+                      <ButtonIcon 
+                          image={require('../../../assets/botao-adicionar-white.png')} 
+                          height={50} 
+                          width={50}
+                          onPress={() => this.setState({ showAddModal: true })}
+                      />
                   </View>       
               </View>
-              <View style={{flex: 1, }}>
-              <FlatList
-                  data={this.state.finances}
-                  keyExtractor={item => `${item.id}`} 
-                  renderItem={({item}) => <Itens {...item}/>}
-        />
+              <View style={{flex: 1, }}>               
+                  <FlatList
+                      data={this.state.finances}
+                      keyExtractor={item => `${item.id}`} 
+                      renderItem={({item}) => <Itens {...item} onDelete={this.deleteFinance}/>}
+                  />
               </View>
           </View>
 

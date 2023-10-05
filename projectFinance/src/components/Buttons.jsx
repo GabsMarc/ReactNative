@@ -11,7 +11,10 @@ export function ButtonWelcome({title, screen}) {
   }
 
   return (
-        <TouchableOpacity onPress={openScreen} style={style.ButtonWelcome}>
+        <TouchableOpacity 
+            onPress={openScreen} 
+            activeOpacity={0.5}
+            style={style.ButtonWelcome}>
                 <Text style={style.txtWelcome}>
                     {title}
                 </Text>
@@ -29,7 +32,7 @@ export function ButtonInfo({title, screen}) {
   }
 
   return (
-        <TouchableOpacity onPress={openScreen}>
+        <TouchableOpacity onPress={openScreen} activeOpacity={0.5}>
             <View style={style.buttonInfo}>
                 <Text style={style.txtInfo}>
                     {title}
@@ -48,7 +51,10 @@ export function ButtonReturn({screen, image}){
   }
 
   return (
-    <TouchableOpacity onPress={openScreen} >
+    <TouchableOpacity 
+        onPress={openScreen} 
+        activeOpacity={0.7}
+    >
         <Image
           source={image} 
           style={style.BtnIcon}
@@ -58,10 +64,13 @@ export function ButtonReturn({screen, image}){
 }
 
 
-export function ButtonIcon({image, height, width}){
+export function ButtonIcon({image, height, width, onPress}){
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+        onPress={onPress}
+        activeOpacity={0.7}
+    >
         <Image
           source={image} 
           style={[style.BtnIcon, {height: height, width: width}]}
