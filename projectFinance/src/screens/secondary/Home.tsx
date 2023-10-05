@@ -13,29 +13,56 @@ import { ButtonIcon } from '../../components/Buttons';
 import { Feather } from '@expo/vector-icons'
 import Itens from '../../components/Itens';
 import AddItem from '../../components/AddItem';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
+const  inicialState = {   
+    showAddFinances: false,
+    visibleFinances: [],
+    finances: []
+}
 export default class Home extends Component {
   
   state = {
-    showAddModal: false,
-    finances: [{
-        id: Math.random(),
-        title: 'titulo 1',
-        desc: 'descrição teste 1'
-    }, {
-        id: Math.random(),
-        title: 'titulo 2',
-        desc: 'descrição teste 2'
-    }]
+    ...inicialState
+    
   }
 
-  addFinance = newFinance => {
-      if(!newFinance.title || !newFinance.title.trim()) {
+  // getFinance = async () => {
+  //   const stateString = await AsyncStorage.getItem('finances')
+  //   const state = JSON.parse(stateString) || inicialState
+  //   this.setState(state, this.filterFinance)
+  // }
+
+  filterFinance = () => {
+    let visibleFinances = null
+    visibleFinances = [...this.state.finances] 
+    this.setState({ visibleFinances })
+    AsyncStorage.setItem('finances', JSON.stringify(this.state.finances))
+  }
+
+
+  
+  toggleFinances = () =>{
+    const finances = [...this.state.finances]
+    this.setState({finances}, this.filterFinance)
+  }
+
+
+
+  componentDidMount = async () => {
+    const data = await AsyncStorage.getItem('finances') 
+    const finances = JSON.parse(data) || []
+    this.setState({ finances }, this.filterFinance)
+    
+  }
+
+
+
+  addFinance = Finance => {
+      if(!Finance.title || !Finance.title.trim()) {
           Alert.alert('Título não informada!')
           return
-      } else if(!newFinance.desc || !newFinance.desc.trim()) {
+      } else if(!Finance.desc || !Finance.desc.trim()) {
         Alert.alert('Descrição não informada!')
         return
       }
@@ -43,23 +70,25 @@ export default class Home extends Component {
       const finances = [...this.state.finances]
       finances.push({
         id: Math.random(),
-        title: newFinance.title,
-        desc: newFinance.desc
+        title: Finance.title,
+        desc: Finance.desc
       })
 
-      this.setState({ finances, showAddModal: false })
+      this.setState({ finances, showAddFinances: false }, this.filterFinance)
   }
+
+  
 
   deleteFinance = id => {
     const finances = this.state.finances.filter(finances => finances.id !== id)
-    this.setState({ finances })
+    this.setState({ finances }, this.filterFinance)
   }
 
   render() {
     return (
       <SafeAreaView style={style.safeArea}>
-        <AddItem isVisible={this.state.showAddModal}
-              onCancel={() => this.setState({ showAddModal: false })}
+        <AddItem isVisible={this.state.showAddFinances}
+              onCancel={() => this.setState({ showAddFinances: false })}
               onSave={this.addFinance}/>
           <View style={[{ backgroundColor: '#740be3', height: 100}]}>
               <Text style={style.title}>
@@ -78,7 +107,7 @@ export default class Home extends Component {
                           image={require('../../../assets/botao-adicionar-white.png')} 
                           height={50} 
                           width={50}
-                          onPress={() => this.setState({ showAddModal: true })}
+                          onPress={() => this.setState({ showAddFinances: true })}
                       />
                   </View>       
               </View>
@@ -86,7 +115,9 @@ export default class Home extends Component {
                   <FlatList
                       data={this.state.finances}
                       keyExtractor={item => `${item.id}`} 
-                      renderItem={({item}) => <Itens {...item} onDelete={this.deleteFinance}/>}
+                      renderItem={({item}) => <Itens {...item} 
+                      onToggleFinance={this.toggleFinances} 
+                      onDelete={this.deleteFinance}/>}
                   />
               </View>
           </View>

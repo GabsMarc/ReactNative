@@ -10,7 +10,7 @@ import {
 import  Swipeable  from 'react-native-gesture-handler/Swipeable';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 export default props => {
