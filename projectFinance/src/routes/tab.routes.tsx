@@ -4,7 +4,7 @@ import { Welcome } from '../screens/main/Welcome';
 import { Aplication } from '../screens/main/Aplication';
 import { Infos } from '../screens/main/Infos';
 import { Help } from '../screens/secondary/Help';
-import { Home } from '../screens/secondary/Home';
+import Home from '../screens/secondary/Home';
 
 
 

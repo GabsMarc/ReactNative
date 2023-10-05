@@ -58,13 +58,13 @@ export function ButtonReturn({screen, image}){
 }
 
 
-export function ButtonIcon({image}){
+export function ButtonIcon({image, height, width}){
 
   return (
     <TouchableOpacity>
         <Image
           source={image} 
-          style={[style.BtnIcon, {height: 60, width: 60}]}
+          style={[style.BtnIcon, {height: height, width: width}]}
         />
     </TouchableOpacity>
   )
