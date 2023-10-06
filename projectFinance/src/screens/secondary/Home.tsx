@@ -6,7 +6,8 @@ import {
     Text, 
     TextInput, 
     View,
-    Alert 
+    Alert, 
+    TouchableOpacity
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ButtonIcon } from '../../components/Buttons';
@@ -14,6 +15,8 @@ import { Feather } from '@expo/vector-icons'
 import Itens from '../../components/Itens';
 import AddItem from '../../components/AddItem';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import SearchInput from '../../components/SearchInput';
+
 
 const  inicialState = {   
     showAddFinances: false,
@@ -26,12 +29,6 @@ export default class Home extends Component {
     ...inicialState
     
   }
-
-  // getFinance = async () => {
-  //   const stateString = await AsyncStorage.getItem('finances')
-  //   const state = JSON.parse(stateString) || inicialState
-  //   this.setState(state, this.filterFinance)
-  // }
 
   filterFinance = () => {
     let visibleFinances = null
@@ -84,6 +81,14 @@ export default class Home extends Component {
     this.setState({ finances }, this.filterFinance)
   }
 
+
+  searchFinance = () => {
+    const search = this.state.finances
+    
+    console.warn(search)
+  }
+
+
   render() {
     return (
       <SafeAreaView style={style.safeArea}>
@@ -96,12 +101,24 @@ export default class Home extends Component {
               </Text>
           </View>
           <View style={[{flex: 8, backgroundColor: 'white'}]}>            
-              <View style={{height: 70}}>
-                  <View style={style.input}>
-                      <Feather name='search' size={30} color={'#740be3'} style={{flex: 1, paddingLeft: 15, alignSelf: 'center'}}/>
-                      <TextInput style={{flex: 7, fontSize: 17}}
-                        placeholder='Pesquisar bloco'/>
-                  </View>
+              <View style={{height: 70}}>                 
+              <View style={style.input}>
+                  <TouchableOpacity 
+                      style={{flex: 1, paddingLeft: 15, paddingRight: 5, alignSelf: 'center'}}
+                      onPress={this.searchFinance}>
+                      <Feather 
+                          name='search' 
+                          size={30} 
+                          color={'#740be3'} 
+                          style={{}}
+                      />
+                  </TouchableOpacity>
+                  <TextInput 
+                      style={{flex: 7, fontSize: 17}}
+                      placeholder='Pesquisar bloco'
+                      
+                  />
+              </View> 
                   <View style={style.ButtonStyle}>
                       <ButtonIcon 
                           image={require('../../../assets/botao-adicionar-white.png')} 

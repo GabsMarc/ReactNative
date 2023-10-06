@@ -33,7 +33,7 @@ export function ButtonInfo({title, screen}) {
 
   return (
         <TouchableOpacity onPress={openScreen} activeOpacity={0.5}>
-            <View style={style.buttonInfo}>
+            <View style={{flexDirection: 'row-reverse'}}>             
                 <Text style={style.txtInfo}>
                     {title}
                 </Text>
@@ -98,30 +98,22 @@ const style = StyleSheet.create ({
       fontWeight: 'bold',
       color: 'white'
     },
-    
-
-
-    buttonInfo: {
-      borderRadius: 15,
-      backgroundColor: '#FFF', 
-      marginHorizontal: 130,
-      position: 'absolute',
-      left: 210,
-      marginTop: 10,
-      padding: 5,
-      paddingLeft: 10,
-      paddingRight: 10,
-      backgroundColor: '#e632fa',
-    },
-    
+     
     txtInfo: {
       fontSize: 18,
       fontWeight: 'bold',
       textAlign: 'center',
-      color: 'white'
-
+      color: 'white',
+      backgroundColor: 'red',
+      marginRight: 15,
+      marginTop: 15,
+      paddingLeft: 13, 
+      paddingRight: 13,
+      paddingTop: 3,
+      paddingBottom: 3,
+      borderRadius: 30,
+      backgroundColor: '#e632fa',
     },
-
     
     btnReturn: {
       borderRadius: 30,
