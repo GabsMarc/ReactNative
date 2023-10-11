@@ -16,14 +16,14 @@ export function TabRoutes(){
             screenOptions={{
                 tabBarActiveTintColor: '#740be3',
                 tabBarInactiveTintColor: 'gray',
-                headerShown: false 
+                headerShown: false,
             }}
             >
             <Screen 
                 name='Home'
                 component={Home}
                 options={{
-                    tabBarLabel: 'Teste',
+                    tabBarLabel: 'Início',
                     tabBarIcon: ({color, size}) => (
                         <MaterialIcons 
                             name='home'

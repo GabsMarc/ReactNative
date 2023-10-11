@@ -8,7 +8,7 @@ import { View,
          TextInput  
 } from 'react-native';
 
-const initialState = { title: '', desc: '' }
+const initialState = { title: '', desc: '', value: '' }
 
 export default class AddItem extends Component {
 
@@ -19,7 +19,8 @@ export default class AddItem extends Component {
     save = () => {
         const newFinance = {
             title: this.state.title,
-            desc: this.state.desc  
+            desc: this.state.desc,
+            value: this.state.value
         }
 
         if(this.props.onSave) {
@@ -38,17 +39,36 @@ export default class AddItem extends Component {
                     <View style={style.overlay}></View>
                 </TouchableWithoutFeedback>
                 <View style={style.container}>
-                    <Text style={style.header}>Nova tarefa</Text>
-                    <TextInput style={style.input}
-                        placeholder='Informe o título'
-                        onChangeText={title => this.setState({ title })}
-                        value={this.state.title}
-                    />
-                    <TextInput style={style.input}
-                        placeholder='Informe sobre finança'
-                        onChangeText={desc => this.setState({ desc })}
-                        value={this.state.desc}
-                    />
+                    <Text style={style.header}>Nova Finança</Text>
+
+                    <View style={{paddingTop: 15}}>
+                        <Text style={style.title}>Titulo</Text>
+                        <TextInput style={style.input}
+                            placeholder='Informe o título'
+                            onChangeText={title => this.setState({ title })}
+                            value={this.state.title}
+                        />
+                    </View>
+
+
+                    <View style={{paddingTop: 15}}>
+                        <Text style={style.title}>Descrição</Text>
+                        <TextInput style={style.input}
+                            placeholder='Descrição da finança'
+                            maxLength={60}
+                            onChangeText={desc => this.setState({ desc })}
+                            value={this.state.desc}
+                        />
+                    </View>
+                    <View style={{paddingTop: 15}}>
+                        <Text style={style.title}>Valor - R$</Text>
+                        <TextInput style={style.input}
+                            placeholder='Opcional - Informe o valor'
+                            onChangeText={value => this.setState({ value })}
+                            value={this.state.value}
+                        />
+                    </View>
+                    
                     <View style={style.buttons}>
                         <TouchableOpacity onPress={this.props.onCancel}>
                             <Text style={[style.button, {backgroundColor: '#e83f3f' }]}>Cancelar</Text>
@@ -72,11 +92,11 @@ const style = StyleSheet.create ({
 
     container: {
         flex: 2,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
 
     header: {
-        fontSize: 20,
+        fontSize: 22,
         backgroundColor: '#740be3', 
         color: 'white',
         textAlign: 'center', 
@@ -84,16 +104,21 @@ const style = StyleSheet.create ({
       
     },
 
+    title: {
+        fontSize: 20,
+        marginLeft: 20,
+
+    },
+
     input: {
-        fontSize: 15,
         width: '90%',
         height: 40,
         marginTop: 10,
-        alignSelf: 'center',
-        backgroundColor: '#E3E3E3',
         borderRadius: 20,
         paddingLeft: 10,
-
+        fontSize: 15,
+        alignSelf: 'center',
+        backgroundColor: '#E3E3E3',
     },
 
     buttons: {
@@ -104,13 +129,14 @@ const style = StyleSheet.create ({
     button: {
         margin: 10,
         marginRight: 20,
+        marginTop: 20,
+        paddingTop: 3,
         fontSize: 16,
-        color: 'white', 
         height: 30,
         width: 80,
+        color: 'white', 
         borderRadius: 30,
         textAlign: 'center',
-        paddingTop: 3
     },
 
 })

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { 
     FlatList, 
     Image, 
@@ -18,14 +18,20 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchInput from '../../components/SearchInput';
 
 
+
+
 const  inicialState = {   
     showAddFinances: false,
     visibleFinances: [],
-    finances: []
-}
-export default class Home extends Component {
+    finances: [],
+    filtered: [],
+    searchInput: '',
+  }
   
-  state = {
+
+  export default class Home extends Component {
+    
+    state = {
     ...inicialState
     
   }
@@ -34,7 +40,7 @@ export default class Home extends Component {
     let visibleFinances = null
     visibleFinances = [...this.state.finances] 
     this.setState({ visibleFinances })
-    AsyncStorage.setItem('finances', JSON.stringify(this.state.finances))
+    AsyncStorage.setItem('@App', JSON.stringify(this.state.finances))
   }
 
 
@@ -47,7 +53,7 @@ export default class Home extends Component {
 
 
   componentDidMount = async () => {
-    const data = await AsyncStorage.getItem('finances') 
+    const data = await AsyncStorage.getItem('@App') 
     const finances = JSON.parse(data) || []
     this.setState({ finances }, this.filterFinance)
     
@@ -58,17 +64,18 @@ export default class Home extends Component {
   addFinance = Finance => {
       if(!Finance.title || !Finance.title.trim()) {
           Alert.alert('Título não informada!')
-          return
+           return
       } else if(!Finance.desc || !Finance.desc.trim()) {
         Alert.alert('Descrição não informada!')
-        return
+           return
       }
 
       const finances = [...this.state.finances]
       finances.push({
         id: Math.random(),
         title: Finance.title,
-        desc: Finance.desc
+        desc: Finance.desc,
+        value: Finance.value
       })
 
       this.setState({ finances, showAddFinances: false }, this.filterFinance)
@@ -79,22 +86,50 @@ export default class Home extends Component {
   deleteFinance = id => {
     const finances = this.state.finances.filter(finances => finances.id !== id)
     this.setState({ finances }, this.filterFinance)
+
   }
+      
 
 
-  searchFinance = () => {
-    const search = this.state.finances
-    
-    console.warn(search)
+
+
+
+
+
+
+
+
+
+
+
+
+  searchQuery = (Input) => {
+    var card = this.state.finances.filter(produto => produto.title);
+
+    //  const finances = JSON.parse(data) || []
+    //  this.setState({ finances }, this.filterFinance)
+     
+    if(Input != ''){
+       var filter = card.filter(cards => cards.title.match(Input))     
+       console.warn(filter)       
+       
+      //  AsyncStorage.setItem('@App', JSON.stringify(this.state.filtered))     
+           
+    }
   }
+
+  
+
 
 
   render() {
+    
     return (
       <SafeAreaView style={style.safeArea}>
-        <AddItem isVisible={this.state.showAddFinances}
+        <AddItem 
+              isVisible={this.state.showAddFinances}
               onCancel={() => this.setState({ showAddFinances: false })}
-              onSave={this.addFinance}/>
+              onSave={this.addFinance}/>     
           <View style={[{ backgroundColor: '#740be3', height: 100}]}>
               <Text style={style.title}>
                 Finance
@@ -102,23 +137,7 @@ export default class Home extends Component {
           </View>
           <View style={[{flex: 8, backgroundColor: 'white'}]}>            
               <View style={{height: 70}}>                 
-              <View style={style.input}>
-                  <TouchableOpacity 
-                      style={{flex: 1, paddingLeft: 15, paddingRight: 5, alignSelf: 'center'}}
-                      onPress={this.searchFinance}>
-                      <Feather 
-                          name='search' 
-                          size={30} 
-                          color={'#740be3'} 
-                          style={{}}
-                      />
-                  </TouchableOpacity>
-                  <TextInput 
-                      style={{flex: 7, fontSize: 17}}
-                      placeholder='Pesquisar bloco'
-                      
-                  />
-              </View> 
+                  <SearchInput searchQuery={this.searchQuery} card={[this.state.finances.filter(card => card)]}/>
                   <View style={style.ButtonStyle}>
                       <ButtonIcon 
                           image={require('../../../assets/botao-adicionar-white.png')} 
@@ -131,10 +150,12 @@ export default class Home extends Component {
               <View style={{flex: 1, }}>               
                   <FlatList
                       data={this.state.finances}
+                      // data={this.state.filtered}
                       keyExtractor={item => `${item.id}`} 
                       renderItem={({item}) => <Itens {...item} 
-                      onToggleFinance={this.toggleFinances} 
-                      onDelete={this.deleteFinance}/>}
+                      // onToggleFinance={this.toggleFinances} 
+                      onDelete={this.deleteFinance}
+                      />}
                   />
               </View>
           </View>
@@ -158,16 +179,16 @@ const style = StyleSheet.create ({
     marginTop: 20,
    },
 
-   input: {
-    backgroundColor: '#E3E3E3',
-    height: 50,
-    margin: 10,
-    marginRight: 75,
-    marginLeft: 15,
-    borderRadius: 30,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-   },
+  //  input: {
+  //   backgroundColor: '#E3E3E3',
+  //   height: 50,
+  //   margin: 10,
+  //   marginRight: 75,
+  //   marginLeft: 15,
+  //   borderRadius: 30,
+  //   flexDirection: 'row',
+  //   justifyContent: 'space-between'
+  //  },
 
   ButtonAdd: {
     flex: 1,
