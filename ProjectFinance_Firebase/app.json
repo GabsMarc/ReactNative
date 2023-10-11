@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "projectFinance",
+    "slug": "projectFinance",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/Finance.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/play_store_512.png"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
