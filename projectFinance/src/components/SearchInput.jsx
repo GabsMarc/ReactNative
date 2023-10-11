@@ -11,7 +11,6 @@ export default props => {
     <View style={[{justifyContent: 'center'}, style.input]}>
        <TouchableOpacity 
             style={{flex: 1, paddingLeft: 15, paddingRight: 5, alignSelf: 'center'}}
-            // onPress={() => {this.searchQuery('45')}}
        >
        <Feather 
             name='search' 

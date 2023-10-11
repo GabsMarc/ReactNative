@@ -91,35 +91,18 @@ const  inicialState = {
       
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   searchQuery = (Input) => {
     var card = this.state.finances.filter(produto => produto.title);
-
-    //  const finances = JSON.parse(data) || []
-    //  this.setState({ finances }, this.filterFinance)
      
     if(Input != ''){
        var filter = card.filter(cards => cards.title.match(Input))     
        console.warn(filter)       
        
-      //  AsyncStorage.setItem('@App', JSON.stringify(this.state.filtered))     
            
     }
   }
 
   
-
 
 
   render() {
@@ -136,24 +119,21 @@ const  inicialState = {
               </Text>
           </View>
           <View style={[{flex: 8, backgroundColor: 'white'}]}>            
-              <View style={{height: 70}}>                 
-                  <SearchInput searchQuery={this.searchQuery} card={[this.state.finances.filter(card => card)]}/>
-                  <View style={style.ButtonStyle}>
-                      <ButtonIcon 
-                          image={require('../../../assets/botao-adicionar-white.png')} 
-                          height={50} 
-                          width={50}
-                          onPress={() => this.setState({ showAddFinances: true })}
-                      />
-                  </View>       
+              <View style={style.containerButton}>                 
+                  {/* <SearchInput searchQuery={this.searchQuery} card={[this.state.finances.filter(card => card)]}/> */}
+                    <TouchableOpacity 
+                        onPress={() => this.setState({ showAddFinances: true })}
+                    >
+                        <Text style={style.ButtonTxt}>
+                            Adicionar Card
+                        </Text>
+                    </TouchableOpacity>
               </View>
               <View style={{flex: 1, }}>               
                   <FlatList
                       data={this.state.finances}
-                      // data={this.state.filtered}
                       keyExtractor={item => `${item.id}`} 
                       renderItem={({item}) => <Itens {...item} 
-                      // onToggleFinance={this.toggleFinances} 
                       onDelete={this.deleteFinance}
                       />}
                   />
@@ -179,40 +159,22 @@ const style = StyleSheet.create ({
     marginTop: 20,
    },
 
-  //  input: {
-  //   backgroundColor: '#E3E3E3',
-  //   height: 50,
-  //   margin: 10,
-  //   marginRight: 75,
-  //   marginLeft: 15,
-  //   borderRadius: 30,
-  //   flexDirection: 'row',
-  //   justifyContent: 'space-between'
-  //  },
-
-  ButtonAdd: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    paddingRight: 20,
-
-  },
-
-  ButtonStyle: {
+  containerButton:{
+    width: '90%',
+    height: 70, 
+    justifyContent: 'center', 
+    alignSelf: 'center',
     backgroundColor: '#740be3',
-    position: 'absolute',
-    right: 15,
-    top: 10,
-    borderRadius: 30,
-    height: 50,
-    width: 50,
+    borderRadius: 20,
+    marginTop: 10
   },
-  
 
-
-
-
-
+  ButtonTxt: {
+    alignSelf: 'center',
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: 'white',
+  },
 
   card: {
     height: 110,
