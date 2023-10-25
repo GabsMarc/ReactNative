@@ -1,8 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons'
-import { Welcome } from '../screens/main/Welcome';
-import { Aplication } from '../screens/main/Aplication';
-import { Infos } from '../screens/main/Infos';
 import { Help } from '../screens/secondary/Help';
 import Home from '../screens/secondary/Home';
 
@@ -14,9 +11,15 @@ export function TabRoutes(){
     return (
         <Navigator
             screenOptions={{
-                tabBarActiveTintColor: '#740be3',
+                tabBarActiveTintColor: 'white',
                 tabBarInactiveTintColor: 'gray',
                 headerShown: false,
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    position: 'absolute',
+                    elevation: 0,
+                    backgroundColor: '#740be3'
+                }
             }}
             >
             <Screen 

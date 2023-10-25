@@ -4,6 +4,7 @@ export declare global {
             Welcome: undefined
             Aplication: undefined
             Infos: undefined
+            EditCard: undefined
         }
     }
 }

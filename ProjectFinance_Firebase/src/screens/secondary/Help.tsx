@@ -17,17 +17,17 @@ export function Help() {
             <View style={{paddingBottom: 100}}>
                 <View style={style.container}>
                     <Text style={style.txtStyle}>
-                        O layout da aplicação possui um botão
+                        O layout da aplicação possui um botão.
                     </Text>
                     <Image 
-                        source={require('../../../assets/help/App3.jpg')}
+                        source={require('../../../assets/help/App.jpg')}
                         style={[style.img, style.imgApp]}
                     />
                 </View>
 
                 <View style={[style.container]}>
                     <Text style={style.txtStyle}>
-                        Ao clicar no botão com o sinal de "+" é aberta a tela onde é criado um novo card   
+                        Ao clicar no botão com o sinal de "+" é aberta a tela onde é criado um novo card.   
                     </Text>
                     <Image 
                         source={require('../../../assets/help/Adicionar.png')}
@@ -37,7 +37,7 @@ export function Help() {
 
                 <View style={[style.container]}>
                     <Text style={style.txtStyle}>
-                        Ao clicar no botão com o sinal de "+" é aberta a tela onde é criado um novo card   
+                        Arrastando o card para a esquerda, é possível habilitar o botão de exclusão, e basta clicar no botão para o card referente seja apagado.   
                     </Text>
                     <Image 
                         source={require('../../../assets/help/excluir.png')}
@@ -86,8 +86,8 @@ const style = StyleSheet.create ({
   },
 
   imgDeletar: {
-    width: '98%', 
-    height: 120,
+    width: '99%', 
+    height: 130,
   }
 
 })

@@ -2,20 +2,21 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Welcome } from '../screens/main/Welcome';
 import { Aplication } from '../screens/main/Aplication';
 import { Infos } from '../screens/main/Infos';
+import { EditCard } from '../screens/secondary/EditCard';
 
 
 const { Screen, Navigator, Group } = createNativeStackNavigator();
 
-export function StackRoutes(){
+export function StackRoutes() {
     return (
         <Navigator>
             <Group
-              screenOptions={{
-                headerShown: false 
-              }}  
+                screenOptions={{
+                    headerShown: false
+                }}
             >
 
-                <Screen 
+                <Screen
                     name='Welcome'
                     component={Welcome}
                     options={{
@@ -23,19 +24,27 @@ export function StackRoutes(){
                     }}
                 />
 
-                <Screen 
+                <Screen
                     name='Aplication'
                     component={Aplication}
                     options={{
-                        title: 'Finance',                   
+                        title: 'Finance',
                     }}
                 />
 
-                <Screen 
+                <Screen
                     name='Infos'
                     component={Infos}
                     options={{
                         title: 'Informações'
+                    }}
+                />
+
+                <Screen
+                    name='EditCard'
+                    component={EditCard}
+                    options={{
+                        title: 'Editar'
                     }}
                 />
             </Group>
