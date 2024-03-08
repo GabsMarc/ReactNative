@@ -1,0 +1,10 @@
+::O que instalar para iniciar um projeto React Native,
+
+	- React Native --> npx create-expo-app "my-app"
+	- Axios
+	- React Navigation
+
+
+::Para não deixar o teclado tampar os inputs,
+
+	- KeyboardAvoidingView
